@@ -1,127 +1,118 @@
-/* BIDULOSHOP™ — interactions */
+/* Biduloshop — interactions */
 (() => {
   "use strict";
 
+  // Catalogue de démonstration (contenus fictifs).
   const PRODUCTS = [
-    { id: "chaussette-klaxon", name: "Chaussette-Klaxon™", emoji: "🧦", cat: "fringues", goof: 4, price: 14.99, old: 19.99, bg: "var(--sky)", badge: "Best-seller", ducks: 5, reviews: 1203,
-      desc: "Chaque pas fait POUET. Taille unique, bruit unique." },
-    { id: "tasse-boudeuse", name: "La Tasse qui Boude", emoji: "☕", cat: "maison", goof: 3, price: 12.99, bg: "var(--banana)", ducks: 4, reviews: 342,
-      desc: "Elle refuse ton café le lundi. Compréhensible." },
-    { id: "canard-philosophe", name: "Canard Philosophe", emoji: "🦆", cat: "bureau", goof: 2, price: 9.99, bg: "var(--slime)", badge: "Pensif", ducks: 5, reviews: 888,
-      desc: "Explique-lui ton bug. Il te répondra « coin ? »." },
-    { id: "moustache-urgence", name: "Moustache d'Urgence", emoji: "🥸", cat: "mystere", goof: 4, price: 6.49, bg: "var(--bubblegum)", ducks: 4, reviews: 97,
-      desc: "Pour les réunions où tu ne veux pas être reconnu." },
-    { id: "bob-banane", name: "Bob Banane", emoji: "🍌", cat: "fringues", goof: 3, price: 24.99, old: 29.99, bg: "var(--banana)", badge: "Été", ducks: 4, reviews: 211,
-      desc: "Un bob. En forme de banane. Protège du soleil et de la dignité." },
-    { id: "plante-dramatique", name: "Plante Dramatique", emoji: "🪴", cat: "maison", goof: 2, price: 19.99, bg: "var(--slime)", ducks: 3, reviews: 58,
-      desc: "Soupire bruyamment quand tu oublies de l'arroser." },
-    { id: "trombone-geant", name: "Trombone XXL", emoji: "📎", cat: "bureau", goof: 3, price: 17.99, bg: "var(--sky)", ducks: 4, reviews: 144,
-      desc: "Pour attacher des dossiers de 3 kg. Ou ton ex." },
-    { id: "boite-rien", name: "Boîte de Rien™", emoji: "📦", cat: "mystere", goof: 5, price: 4.99, bg: "var(--grape)", badge: "Culte", ducks: 5, reviews: 4242,
-      desc: "Contient exactement rien. Emballage premium." },
-    { id: "slip-cape", name: "Slip-Cape", emoji: "🦸", cat: "fringues", goof: 5, price: 21.99, bg: "var(--tomato)", ducks: 4, reviews: 76,
-      desc: "Se porte sur le pantalon. Pouvoirs non garantis." },
-    { id: "gomme-pizza", name: "Gomme Parfum Pizza", emoji: "🍕", cat: "bureau", goof: 2, price: 2.99, bg: "var(--banana)", ducks: 3, reviews: 510,
-      desc: "Efface tes erreurs. Donne faim. Ne pas manger." },
-    { id: "coussin-prout", name: "Coussin Prout Deluxe", emoji: "💨", cat: "maison", goof: 4, price: 8.99, bg: "var(--bubblegum)", badge: "Classique", ducks: 5, reviews: 2020,
-      desc: "Version silencieuse disponible (c'est un coussin)." },
-    { id: "caillou-compagnie", name: "Caillou de Compagnie", emoji: "🪨", cat: "mystere", goof: 5, price: 11.99, bg: "var(--sky)", ducks: 5, reviews: 666,
-      desc: "Aucun entretien. Très bon auditeur. Livré avec certificat d'adoption." },
+    { id: "chaussettes-klaxon", name: "Chaussettes Klaxon", emoji: "🧦", cat: "vetements", goof: 4, price: 14.9, bg: "var(--sky)", badge: "Best-seller", rating: 4.9, reviews: 1203, pop: 10,
+      desc: "Un « pouet » discret à chaque pas. Coton peigné." },
+    { id: "mug-boudeur", name: "Mug Boudeur", emoji: "☕", cat: "maison", goof: 3, price: 16.9, bg: "var(--banana)", rating: 4.7, reviews: 342, pop: 8,
+      desc: "Céramique 350 ml, expression grincheuse garantie avant le premier café." },
+    { id: "canard-debug", name: "Canard de Debug", emoji: "🦆", cat: "bureau", goof: 2, price: 9.9, bg: "var(--slime)", badge: "Nouveau", rating: 4.8, reviews: 888, pop: 9,
+      desc: "Le collègue idéal pour expliquer vos bugs à voix haute." },
+    { id: "kit-moustaches", name: "Kit Moustaches Visio", emoji: "🥸", cat: "cadeaux", goof: 4, price: 7.9, bg: "var(--bubblegum)", rating: 4.4, reviews: 97, pop: 4,
+      desc: "6 moustaches adhésives réutilisables pour égayer vos réunions." },
+    { id: "bob-banane", name: "Bob Banane", emoji: "🍌", cat: "vetements", goof: 3, price: 24.9, old: 29.9, bg: "var(--banana)", badge: "-17 %", rating: 4.6, reviews: 211, pop: 7,
+      desc: "100 % coton, protection solaire, style inimitable." },
+    { id: "plante-drama", name: "Pot Drama Queen", emoji: "🪴", cat: "maison", goof: 2, price: 19.9, bg: "var(--slime)", rating: 4.5, reviews: 58, pop: 3,
+      desc: "Pot en céramique au visage expressif. Plante non incluse." },
+    { id: "trombone-xxl", name: "Trombone XXL", emoji: "📎", cat: "bureau", goof: 3, price: 17.9, bg: "var(--sky)", rating: 4.3, reviews: 144, pop: 5,
+      desc: "Presse-papier en acier brossé de 30 cm. Tient vraiment les papiers." },
+    { id: "boite-mystere", name: "Boîte Mystère", emoji: "📦", cat: "cadeaux", goof: 5, price: 19.9, bg: "var(--grape)", badge: "Culte", rating: 4.7, reviews: 1540, pop: 9.5,
+      desc: "Trois objets décalés tirés au sort. Valeur minimale de 30 €." },
+    { id: "cape-heros", name: "Cape de Héros Adulte", emoji: "🦸", cat: "vetements", goof: 5, price: 29.9, bg: "var(--tomato)", rating: 4.5, reviews: 76, pop: 4.5,
+      desc: "Satin brodé, attache aimantée. Super-pouvoirs non contractuels." },
+    { id: "gommes-pizza", name: "Gommes Pizza (lot de 3)", emoji: "🍕", cat: "bureau", goof: 2, price: 4.9, bg: "var(--banana)", rating: 4.2, reviews: 510, pop: 6,
+      desc: "Parfum pizza, efficacité très sérieuse." },
+    { id: "coussin-farceur", name: "Coussin Farceur", emoji: "💨", cat: "cadeaux", goof: 4, price: 8.9, bg: "var(--bubblegum)", rating: 4.6, reviews: 2020, pop: 8.5,
+      desc: "Le classique indémodable, en caoutchouc naturel renforcé." },
+    { id: "caillou-compagnie", name: "Caillou de Compagnie", emoji: "🪨", cat: "cadeaux", goof: 5, price: 11.9, bg: "var(--sky)", rating: 4.9, reviews: 666, pop: 7.5,
+      desc: "Livré avec certificat d'adoption. Aucun entretien requis." },
   ];
-
-  const GOOF_LABELS = ["Tout me va", "Un peu bizarre", "Franchement goofy", "Débile assumé", "Chaos total"];
-  const ADD_MESSAGES = [
-    "Excellent choix. Enfin… choix.",
-    "Ton banquier a senti une perturbation.",
-    "Coin coin ! (ça veut dire bravo)",
-    "Ajouté ! Ta mère serait… perplexe.",
-    "Le panier a fait un petit bruit de joie.",
-    "Une bêtise de plus, une tristesse de moins.",
-  ];
-  const FREE_SHIP = 42;
-  const reduceMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+  const CAT_LABELS = { vetements: "Vêtements", maison: "Maison", bureau: "Bureau", cadeaux: "Cadeaux" };
+  const GOOF_LABELS = ["Tous", "Un brin décalé", "Franchement drôle", "Très décalé", "Totalement décalé"];
+  const FREE_SHIP = 50, SHIP_COST = 4.9, PROMO_CODE = "BIENVENUE", PROMO_RATE = 0.1;
 
   const $ = (s, el = document) => el.querySelector(s);
   const $$ = (s, el = document) => [...el.querySelectorAll(s)];
   const euro = (n) => n.toLocaleString("fr-FR", { style: "currency", currency: "EUR" });
+  const byId = (id) => PRODUCTS.find((p) => p.id === id);
+  const reduceMotion = matchMedia("(prefers-reduced-motion: reduce)").matches;
 
-  /* ---------------- State ---------------- */
-  const state = { cat: "all", goof: 1, cart: loadCart(), promo: false };
+  const state = { cat: "all", goof: 1, sort: "popular", cart: load("biduloCart", {}), promo: load("biduloPromo", false) };
 
-  function loadCart() {
-    try { return JSON.parse(localStorage.getItem("biduloCart")) || {}; } catch { return {}; }
+  function load(key, fallback) {
+    try { return JSON.parse(localStorage.getItem(key)) ?? fallback; } catch { return fallback; }
   }
-  function saveCart() {
-    try { localStorage.setItem("biduloCart", JSON.stringify(state.cart)); } catch { /* mode privé : tant pis */ }
-  }
-
-  /* ---------------- Son (klaxon WebAudio, aucun fichier) ---------------- */
-  let audioCtx;
-  function honk(freq = 380) {
+  function save() {
     try {
-      audioCtx = audioCtx || new (window.AudioContext || window.webkitAudioContext)();
-      const o = audioCtx.createOscillator(), g = audioCtx.createGain();
-      o.type = "square";
-      o.frequency.setValueAtTime(freq, audioCtx.currentTime);
-      o.frequency.exponentialRampToValueAtTime(freq * 0.7, audioCtx.currentTime + 0.18);
-      g.gain.setValueAtTime(0.06, audioCtx.currentTime);
-      g.gain.exponentialRampToValueAtTime(0.001, audioCtx.currentTime + 0.22);
-      o.connect(g).connect(audioCtx.destination);
-      o.start(); o.stop(audioCtx.currentTime + 0.23);
-    } catch { /* pas de son, pas de drame */ }
+      localStorage.setItem("biduloCart", JSON.stringify(state.cart));
+      localStorage.setItem("biduloPromo", JSON.stringify(state.promo));
+    } catch { /* stockage indisponible : le panier vit le temps de la page */ }
   }
 
-  /* ---------------- Rendu produits ---------------- */
-  const grid = $("#productGrid");
+  /* ---------------- Produits ---------------- */
+  const SORTS = {
+    popular: (a, b) => b.pop - a.pop,
+    "price-asc": (a, b) => a.price - b.price,
+    "price-desc": (a, b) => b.price - a.price,
+    rating: (a, b) => b.rating - a.rating,
+  };
+  const stars = (r) => "★".repeat(Math.round(r)) + "☆".repeat(5 - Math.round(r));
+
   function renderProducts() {
-    const list = PRODUCTS.filter((p) => (state.cat === "all" || p.cat === state.cat) && p.goof >= state.goof);
-    grid.innerHTML = list.map((p, i) => `
-      <li class="card" style="--i:${i};--tilt:${i % 2 ? 1.2 : -1.2}deg">
+    const list = PRODUCTS
+      .filter((p) => (state.cat === "all" || p.cat === state.cat) && p.goof >= state.goof)
+      .sort(SORTS[state.sort]);
+
+    $("#productGrid").innerHTML = list.map((p, i) => `
+      <li class="card" style="--i:${i}">
         <div class="card__visual" style="--bg:${p.bg}">
           ${p.badge ? `<span class="card__badge">${p.badge}</span>` : ""}
-          <span class="card__goof" title="Niveau de goofitude">${"🤪".repeat(p.goof)}<span class="sr-only"> goofitude ${p.goof} sur 5</span></span>
           <span class="card__emoji" aria-hidden="true">${p.emoji}</span>
         </div>
         <div class="card__body">
+          <p class="card__meta"><span>${CAT_LABELS[p.cat]}</span><span>Fantaisie ${p.goof}/5</span></p>
           <h3 class="card__name">${p.name}</h3>
           <p class="card__desc">${p.desc}</p>
-          <p class="card__rating"><span aria-hidden="true">${"🦆".repeat(p.ducks)}</span><span class="sr-only">${p.ducks} canards sur 5</span> · ${p.reviews.toLocaleString("fr-FR")} avis</p>
+          <p class="card__rating"><span class="stars" aria-hidden="true">${stars(p.rating)}</span>
+            <span class="sr-only">Note ${p.rating.toLocaleString("fr-FR")} sur 5,</span> ${p.reviews.toLocaleString("fr-FR")} avis</p>
           <div class="card__foot">
-            <span class="card__price">${euro(p.price)}${p.old ? `<s aria-label="au lieu de ${euro(p.old)}">${euro(p.old)}</s>` : ""}</span>
-            <button class="btn btn--primary" type="button" data-add="${p.id}" aria-label="Ajouter ${p.name} au panier">+ Panier</button>
+            <span class="card__price">${euro(p.price)}${p.old ? `<s><span class="sr-only">au lieu de </span>${euro(p.old)}</s>` : ""}</span>
+            <button class="btn btn--primary" type="button" data-add="${p.id}" aria-label="Ajouter ${p.name} au panier">Ajouter</button>
           </div>
         </div>
       </li>`).join("");
 
     $("#emptyState").hidden = list.length > 0;
-    $("#resultsCount").textContent = list.length
-      ? `${list.length} bêtise${list.length > 1 ? "s" : ""} trouvée${list.length > 1 ? "s" : ""}`
-      : "";
+    $("#resultsCount").textContent = list.length ? `${list.length} produit${list.length > 1 ? "s" : ""}` : "";
   }
 
   /* ---------------- Filtres ---------------- */
   $$(".chip").forEach((chip) => chip.addEventListener("click", () => {
     state.cat = chip.dataset.cat;
     $$(".chip").forEach((c) => {
-      const on = c === chip;
-      c.classList.toggle("is-active", on);
-      c.setAttribute("aria-pressed", on);
+      c.classList.toggle("is-active", c === chip);
+      c.setAttribute("aria-pressed", c === chip);
     });
     renderProducts();
   }));
 
   const slider = $("#goofSlider");
-  slider.addEventListener("input", () => {
+  function onSlider() {
     state.goof = +slider.value;
-    const label = GOOF_LABELS[state.goof - 1];
+    const label = state.goof === 1 ? GOOF_LABELS[0] : `${GOOF_LABELS[state.goof - 1]} et plus`;
     $("#goofLabel").textContent = label;
     slider.setAttribute("aria-valuetext", label);
     renderProducts();
-  });
+  }
+  slider.addEventListener("input", onSlider);
   slider.setAttribute("aria-valuetext", GOOF_LABELS[0]);
 
+  $("#sortSelect").addEventListener("change", (e) => { state.sort = e.target.value; renderProducts(); });
+
   $("#resetFilters").addEventListener("click", () => {
-    slider.value = 1; slider.dispatchEvent(new Event("input"));
+    slider.value = 1; onSlider();
     $(".chip[data-cat='all']").click();
   });
 
@@ -131,6 +122,7 @@
 
   function openCart() {
     lastFocus = document.activeElement;
+    $("#toasts").replaceChildren(); // le panier montre déjà l'info, et un toast masquerait le total
     cartEl.classList.add("is-open");
     cartEl.setAttribute("aria-hidden", "false");
     overlay.hidden = false;
@@ -144,15 +136,17 @@
     overlay.hidden = true;
     cartBtn.setAttribute("aria-expanded", "false");
     document.body.style.overflow = "";
-    (lastFocus || cartBtn).focus();
+    (lastFocus && document.contains(lastFocus) ? lastFocus : cartBtn).focus();
   }
   cartBtn.addEventListener("click", openCart);
   $("#cartClose").addEventListener("click", closeCart);
   overlay.addEventListener("click", closeCart);
+  $("#emptyShop").addEventListener("click", () => { closeCart(); $("#boutique").scrollIntoView(); });
+
   document.addEventListener("keydown", (e) => {
     if (!cartEl.classList.contains("is-open")) return;
     if (e.key === "Escape") closeCart();
-    if (e.key === "Tab") { // piège à focus
+    if (e.key === "Tab") {
       const f = $$("button, input, [href]", cartEl).filter((el) => !el.disabled && el.offsetParent);
       const first = f[0], last = f[f.length - 1];
       if (e.shiftKey && document.activeElement === first) { e.preventDefault(); last.focus(); }
@@ -160,183 +154,145 @@
     }
   });
 
-  function addToCart(id, originEl) {
+  function addToCart(id) {
+    const p = byId(id);
     state.cart[id] = (state.cart[id] || 0) + 1;
-    saveCart(); renderCart();
-    const p = PRODUCTS.find((x) => x.id === id);
-    toast(`${p.emoji} ${ADD_MESSAGES[Math.floor(Math.random() * ADD_MESSAGES.length)]}`);
-    honk(300 + Math.random() * 200);
-    confetti(originEl, p.emoji);
+    save(); renderCart();
+    toast(p);
     cartBtn.classList.remove("is-bumping"); void cartBtn.offsetWidth; cartBtn.classList.add("is-bumping");
   }
 
   function setQty(id, qty) {
-    if (qty <= 0) delete state.cart[id]; else state.cart[id] = qty;
-    saveCart(); renderCart();
+    if (qty <= 0) delete state.cart[id]; else state.cart[id] = Math.min(qty, 99);
+    save(); renderCart();
+  }
+
+  function totals() {
+    const items = Object.entries(state.cart).map(([id, qty]) => ({ p: byId(id), qty })).filter((e) => e.p);
+    const count = items.reduce((s, e) => s + e.qty, 0);
+    const subtotal = items.reduce((s, e) => s + e.qty * e.p.price, 0);
+    const discount = state.promo ? subtotal * PROMO_RATE : 0;
+    const afterDiscount = subtotal - discount;
+    const shipping = count === 0 || afterDiscount >= FREE_SHIP ? 0 : SHIP_COST;
+    return { items, count, subtotal, discount, afterDiscount, shipping, total: afterDiscount + shipping };
   }
 
   function renderCart() {
-    const entries = Object.entries(state.cart).map(([id, qty]) => ({ p: PRODUCTS.find((x) => x.id === id), qty })).filter((e) => e.p);
-    const count = entries.reduce((s, e) => s + e.qty, 0);
-    const subtotal = entries.reduce((s, e) => s + e.qty * e.p.price, 0);
-    const discount = state.promo ? subtotal * 0.1 : 0;
-    const total = subtotal - discount;
+    const t = totals();
+    $("#cartCount").textContent = t.count;
+    cartEl.classList.toggle("is-empty", t.count === 0);
 
-    $("#cartCount").textContent = count;
-    cartEl.classList.toggle("is-empty", count === 0);
-    $("#checkoutBtn").disabled = count === 0;
-
-    $("#cartItems").innerHTML = entries.map(({ p, qty }) => `
+    $("#cartItems").innerHTML = t.items.map(({ p, qty }) => `
       <li class="cart-item">
         <span class="cart-item__emoji" style="--bg:${p.bg}" aria-hidden="true">${p.emoji}</span>
         <div>
           <p class="cart-item__name">${p.name}</p>
-          <p class="cart-item__price">${euro(p.price)} × ${qty}</p>
+          <p class="cart-item__price">${euro(p.price * qty)}</p>
+          <button type="button" class="cart-item__remove" data-remove="${p.id}">Retirer<span class="sr-only"> ${p.name}</span></button>
         </div>
         <div class="qty">
-          <button type="button" data-qty="${p.id}" data-d="-1" aria-label="Retirer un ${p.name}">−</button>
-          <span aria-label="Quantité">${qty}</span>
-          <button type="button" data-qty="${p.id}" data-d="1" aria-label="Ajouter un ${p.name}">+</button>
+          <button type="button" data-qty="${p.id}" data-d="-1" aria-label="Diminuer la quantité de ${p.name}">−</button>
+          <span aria-label="Quantité : ${qty}">${qty}</span>
+          <button type="button" data-qty="${p.id}" data-d="1" aria-label="Augmenter la quantité de ${p.name}">+</button>
         </div>
       </li>`).join("");
 
-    $("#subtotal").textContent = euro(subtotal);
+    $("#subtotal").textContent = euro(t.subtotal);
     $("#discountRow").hidden = !state.promo;
-    $("#discount").textContent = "-" + euro(discount);
-    $("#total").textContent = euro(total);
+    $("#discount").textContent = "-" + euro(t.discount);
+    $("#shipping").textContent = t.shipping ? euro(t.shipping) : "Offerte";
+    $("#total").textContent = euro(t.total);
 
-    const left = Math.max(0, FREE_SHIP - total);
+    const left = Math.max(0, FREE_SHIP - t.afterDiscount);
     $("#shipMsg").textContent = left > 0
-      ? `Plus que ${euro(left)} pour la livraison offerte 🚚`
-      : "Livraison offerte ! Le pigeon voyageur est prévenu 🕊️";
-    $("#shipBar").style.width = Math.min(100, (total / FREE_SHIP) * 100) + "%";
+      ? `Plus que ${euro(left)} pour profiter de la livraison offerte.`
+      : "🎉 Bonne nouvelle : la livraison est offerte !";
+    $("#shipBar").style.width = Math.min(100, (t.afterDiscount / FREE_SHIP) * 100) + "%";
   }
 
   $("#cartItems").addEventListener("click", (e) => {
-    const b = e.target.closest("[data-qty]");
-    if (b) setQty(b.dataset.qty, (state.cart[b.dataset.qty] || 0) + +b.dataset.d);
+    const q = e.target.closest("[data-qty]");
+    if (q) return setQty(q.dataset.qty, (state.cart[q.dataset.qty] || 0) + +q.dataset.d);
+    const r = e.target.closest("[data-remove]");
+    if (r) { setQty(r.dataset.remove, 0); $("#cartClose").focus(); }
   });
 
   document.addEventListener("click", (e) => {
     const b = e.target.closest("[data-add]");
-    if (b) addToCart(b.dataset.add, b);
+    if (b) addToCart(b.dataset.add);
   });
 
   $("#promoForm").addEventListener("submit", (e) => {
     e.preventDefault();
     const code = $("#promo").value.trim().toUpperCase();
     const msg = $("#promoMsg");
-    if (code === "BANANE" || code === "🍌") {
-      state.promo = true; msg.textContent = "🍌 -10 % appliqués. La banane est avec toi.";
-      confetti($("#promo"), "🍌");
-    } else if (code === "") {
-      msg.textContent = "Tu as tapé… rien. Audacieux.";
+    msg.className = "promo__msg";
+    if (!code) {
+      msg.textContent = "Saisissez un code promo.";
+      msg.classList.add("is-error");
+    } else if (code === PROMO_CODE) {
+      state.promo = true;
+      msg.textContent = "Code appliqué : -10 % sur votre commande.";
+      msg.classList.add("is-ok");
     } else {
-      state.promo = false; msg.textContent = `« ${code} » ? Jamais entendu parler. Essaie un fruit jaune.`;
+      msg.textContent = "Ce code n'est pas valide. Vérifiez l'orthographe.";
+      msg.classList.add("is-error");
     }
-    renderCart();
+    save(); renderCart();
   });
 
   $("#checkoutBtn").addEventListener("click", () => {
-    toast("🚀 Commande envoyée ! (C'est une démo : ton caillou reste imaginaire.)");
-    confetti($("#checkoutBtn"), "🎉", 30);
-    state.cart = {}; state.promo = false; saveCart(); renderCart();
-    $("#promo").value = ""; $("#promoMsg").textContent = "";
+    // Démo : la redirection vers le tunnel de paiement se branchera ici.
+    toast(null, "Redirection vers le paiement sécurisé…", "Démo : aucune commande n'est passée.");
   });
 
   /* ---------------- Toasts ---------------- */
-  function toast(text) {
+  function toast(product, title, sub) {
     const t = document.createElement("div");
-    t.className = "toast"; t.textContent = text;
-    $("#toasts").appendChild(t);
-    setTimeout(() => { t.classList.add("is-leaving"); setTimeout(() => t.remove(), 300); }, 2600);
+    t.className = "toast";
+    t.innerHTML = `
+      <span class="toast__emoji" aria-hidden="true">${product ? product.emoji : "🔒"}</span>
+      <p class="toast__text"><strong></strong><small></small></p>
+      ${product ? '<button type="button" class="toast__action">Voir le panier</button>' : ""}`;
+    $("strong", t).textContent = product ? `${product.name} ajouté au panier` : title;
+    $("small", t).textContent = product ? euro(product.price) : sub;
+    $(".toast__action", t)?.addEventListener("click", () => { t.remove(); openCart(); });
+    const box = $("#toasts");
+    while (box.children.length >= 2) box.firstElementChild.remove();
+    box.appendChild(t);
+    setTimeout(() => { t.classList.add("is-leaving"); setTimeout(() => t.remove(), 250); }, 4000);
   }
 
-  /* ---------------- Confettis ---------------- */
-  function confetti(originEl, emoji = "🎉", n = 14) {
-    if (reduceMotion) return;
-    const r = originEl ? originEl.getBoundingClientRect() : { left: innerWidth / 2, top: innerHeight / 2, width: 0, height: 0 };
-    const pool = [emoji, "✨", "⭐", "🎉", emoji];
-    for (let i = 0; i < n; i++) {
-      const c = document.createElement("span");
-      c.className = "confetti"; c.textContent = pool[i % pool.length];
-      c.style.left = r.left + r.width / 2 + "px"; c.style.top = r.top + r.height / 2 + "px";
-      document.body.appendChild(c);
-      const angle = Math.random() * Math.PI * 2, dist = 60 + Math.random() * 120;
-      c.animate([
-        { transform: "translate(-50%,-50%) scale(.4)", opacity: 1 },
-        { transform: `translate(calc(-50% + ${Math.cos(angle) * dist}px), calc(-50% + ${Math.sin(angle) * dist + 80}px)) rotate(${Math.random() * 720 - 360}deg) scale(1)`, opacity: 0 },
-      ], { duration: 800 + Math.random() * 500, easing: "cubic-bezier(.2,.7,.4,1)" }).onfinish = () => c.remove();
-    }
-  }
-
-  /* ---------------- Hero : clic sur la star ---------------- */
+  /* ---------------- Hero ---------------- */
   const heroEmojis = PRODUCTS.map((p) => p.emoji);
-  let heroIdx = 0;
+  let heroIdx = 2; // 🦆
   $("#heroProduct").addEventListener("click", (e) => {
     heroIdx = (heroIdx + 1) % heroEmojis.length;
     e.currentTarget.textContent = heroEmojis[heroIdx];
-    honk(520); confetti(e.currentTarget, heroEmojis[heroIdx], 8);
   });
 
   $("#randomBtn").addEventListener("click", () => {
+    if (!$$(".card").length) $("#resetFilters").click();
     const cards = $$(".card");
-    if (!cards.length) $("#resetFilters").click();
-    const all = $$(".card");
-    const pick = all[Math.floor(Math.random() * all.length)];
+    const pick = cards[Math.floor(Math.random() * cards.length)];
     pick.scrollIntoView({ behavior: reduceMotion ? "auto" : "smooth", block: "center" });
-    pick.animate?.([{ transform: "scale(1)" }, { transform: "scale(1.08) rotate(3deg)" }, { transform: "scale(1)" }], { duration: 600, delay: 400 });
+    if (!reduceMotion) pick.animate([{ transform: "scale(1)" }, { transform: "scale(1.04)" }, { transform: "scale(1)" }], { duration: 500, delay: 450 });
     setTimeout(() => $(".btn", pick).focus({ preventScroll: true }), 500);
-  });
-
-  /* ---------------- Mode chaos ---------------- */
-  const chaosBtn = $("#chaosToggle");
-  let lastTrail = 0;
-  function onMove(e) {
-    const now = performance.now();
-    if (now - lastTrail < 40) return;
-    lastTrail = now;
-    const t = document.createElement("span");
-    t.className = "trail"; t.textContent = ["✨", "🍌", "🦆", "⭐"][Math.floor(Math.random() * 4)];
-    t.style.left = e.clientX + "px"; t.style.top = e.clientY + "px";
-    document.body.appendChild(t);
-    setTimeout(() => t.remove(), 800);
-  }
-  chaosBtn.addEventListener("click", () => {
-    const on = document.body.classList.toggle("chaos");
-    chaosBtn.setAttribute("aria-pressed", on);
-    if (on && !reduceMotion) document.addEventListener("pointermove", onMove);
-    else document.removeEventListener("pointermove", onMove);
-    toast(on ? "🌀 Mode chaos activé. Bonne chance." : "😌 Retour au calme (relatif).");
-    honk(on ? 200 : 600);
   });
 
   /* ---------------- Newsletter ---------------- */
   $("#clubForm").addEventListener("submit", (e) => {
     e.preventDefault();
     const input = $("#email"), msg = $("#clubMsg");
-    if (!input.checkValidity() || !input.value) {
+    if (!input.value || !input.checkValidity()) {
       input.setAttribute("aria-invalid", "true");
-      msg.textContent = "🤔 Même un canard sait écrire un e-mail valide. Réessaie !";
+      msg.textContent = "Merci de saisir une adresse e-mail valide.";
       input.focus();
       return;
     }
     input.removeAttribute("aria-invalid");
-    msg.textContent = "🦆 Bienvenue au club ! Ton premier coin-coin arrive bientôt.";
+    msg.textContent = "🦆 Bienvenue au club ! Votre code de -10 % arrive par e-mail.";
     input.value = "";
-    confetti(e.submitter, "🦆", 18);
-  });
-
-  /* ---------------- Konami ---------------- */
-  const KONAMI = ["ArrowUp", "ArrowUp", "ArrowDown", "ArrowDown", "ArrowLeft", "ArrowRight", "ArrowLeft", "ArrowRight", "b", "a"];
-  let k = 0;
-  document.addEventListener("keydown", (e) => {
-    k = e.key.toLowerCase() === KONAMI[k].toLowerCase() ? k + 1 : (e.key === KONAMI[0] ? 1 : 0);
-    if (k === KONAMI.length) {
-      k = 0;
-      document.body.classList.toggle("upside-down");
-      toast("🙃 Tu as retourné le site. Ré-appuie pour le remettre.");
-    }
   });
 
   renderProducts();

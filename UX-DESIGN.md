@@ -1,71 +1,79 @@
-# BIDULOSHOP™ — UX design
+# Biduloshop — UX design
 
-> Le merch le plus goofy d'internet… avec une UX sérieuse en dessous.
+> Du merch décalé, avec l'exécution d'un e-commerce professionnel.
 
-Principe directeur : **le ton est absurde, le parcours d'achat ne l'est jamais.**
-La bêtise vit dans le contenu, les micro-interactions et les easter eggs.
-Chercher, comprendre un prix, ajouter au panier et payer restent des gestes
-standards et prévisibles.
+**Principe directeur : l'humour est dans les produits, pas dans le parcours.**
+La personnalité passe par le catalogue, les couleurs, les formes et quelques
+micro-interactions. La navigation, les prix, le panier et le paiement suivent
+les conventions e-commerce pour inspirer confiance et convertir.
+
+| On s'autorise | On s'interdit |
+|---|---|
+| Des noms et descriptions de produits drôles | Des blagues dans les libellés de boutons, de prix ou de paiement |
+| Une palette vive, des formes arrondies, des ombres « cartoon » | Des animations permanentes qui distraient de la lecture |
+| Un clin d'œil dans les états vides et les confirmations | Des sons, du plein écran, des effets déclenchés sans action de l'utilisateur |
+| Un filtre signature (« niveau de fantaisie ») | Des filtres ou des mentions dont le sens n'est pas immédiatement clair |
 
 ## 1. Cibles
 
-| Persona | Besoin | Ce que le site lui apporte |
+| Persona | Besoin | Réponse |
 |---|---|---|
-| **Léa, 24 ans, cherche un cadeau débile** | Trouver vite un truc drôle entre 5 et 25 € | Goof-o-mètre, catégories, bouton « Surprends-moi » |
-| **Kévin, 31 ans, collectionneur d'absurde** | Voir les nouveautés, se sentir dans le délire | Stickers « Nouveau », avis absurdes, Club des Canards |
-| **Mamie Josette, 87 ans, achète pour ses petits-enfants** | Ne pas se perdre | Gros boutons, contrastes forts, parcours linéaire, pas de piège |
+| **Léa, 29 ans, cherche un cadeau original** | Trouver vite une idée entre 5 et 30 € | Catégories, tri par prix, bouton « Idée cadeau au hasard » |
+| **Julien, office manager** | Commander des goodies pour l'équipe, rassuré sur les délais | Bandeau de réassurance, lien « Commandes entreprises », frais de port clairs |
+| **Monique, 68 ans, achète pour ses petits-enfants** | Un parcours simple et lisible | Gros boutons, contrastes forts, parcours linéaire, aucun piège |
 
 ## 2. Parcours principal
 
 ```
-Hero ──► Boutique (filtres) ──► + Panier ──► Drawer panier ──► Commande
-  │            ▲                    │
-  └─ 🎲 Surprends-moi ─┘            └─ toast + confettis + klaxon (feedback)
+Accueil ──► Boutique (catégorie · fantaisie · tri) ──► Ajouter ──► Panier (tiroir) ──► Paiement
+   │                     ▲                               │
+   └─ Idée cadeau au hasard ┘                            └─ toast « Ajouté » + lien « Voir le panier »
 ```
 
-- **Accès à la boutique en 1 clic** depuis le hero (CTA principal) et un lien d'évitement pour le clavier.
-- **Ajout au panier sans changement de page** : feedback triple (toast, compteur qui « klaxonne », confettis) sans ouvrir le panier de force.
-- **Panier en tiroir latéral** : on garde le contexte de la boutique, on ferme avec ✕, Échap ou clic sur le fond.
-- **Barre de progression livraison offerte** (seuil à 42 €) : incite à ajouter un article, de manière honnête.
+- **Accès direct à la boutique** depuis le CTA principal, et un lien d'évitement pour la navigation au clavier.
+- **Ajout sans rupture** : un toast confirme le produit et son prix, avec un raccourci vers le panier. Le panier ne s'ouvre pas de force.
+- **Panier en tiroir** : quantité, suppression, code promo, frais de port et total TTC toujours visibles. Il se ferme avec ✕, Échap ou un clic sur le fond.
+- **Seuil de livraison offerte (50 €)** annoncé dans le bandeau, puis suivi par une barre de progression dans le panier.
 
-## 3. Composants signature
+## 3. Composants
 
-| Composant | Rôle UX | Touche goofy |
+| Composant | Rôle | Touche de marque |
 |---|---|---|
-| **Goof-o-mètre** (slider 1→5) | Filtre principal, remplace un filtre « style » | Niveaux 😐 → 🥴, libellés (« Débile assumé ») |
-| **Chips de catégorie** | Filtre secondaire, état `aria-pressed` | Emojis |
-| **Carte produit** | Nom, promesse, prix, note, CTA toujours visible | Note en 🦆, badge penché, tilt au survol |
-| **État vide** | Explique et propose de réinitialiser | « Même nous, on n'a pas osé fabriquer ça » 🦗 |
-| **Code promo** | Messages d'erreur utiles | Indice 🍌, `BANANE` = -10 % |
-| **Mode chaos** | Optionnel, désactivé par défaut | Cartes penchées, traînée d'emojis, curseur banane |
-| **Easter egg** | Récompense les curieux | Konami code = site à l'envers |
+| Bandeau de réassurance | Délais, retours, paiement, emballage cadeau | Icônes emoji sobres |
+| Chips de catégorie | Filtre principal (`aria-pressed`) | Style « pilule » à contour |
+| Niveau de fantaisie (1 → 5) | Filtre signature, de « Subtil » à « Totalement décalé » | Dégradé aux couleurs de la marque |
+| Tri | Popularité, prix, note | — |
+| Carte produit | Catégorie, nom, bénéfice, note, prix, CTA | Fond coloré, badge, léger rebond au survol |
+| État vide | Explique le problème et propose de réinitialiser | « Même nous, on n'a pas encore osé le fabriquer » |
+| Toast d'ajout | Confirmation et raccourci vers le panier | Emoji du produit |
+| Panier | Récapitulatif transparent, sans frais cachés | Canard dans l'état vide |
 
 ## 4. Design system
 
-**Couleurs** — fond crème `#fff8e7`, encre `#1b1036` (contours + texte, contraste AAA).
-Accents : banane `#ffd23f`, bubblegum `#ff5fa2`, slime `#3ddc84`, ciel `#5bc0ff`, raisin `#8a5cff`, tomate `#ff6b3d`.
+- **Couleurs** : fond crème `#fffaf0`, encre `#1b1036` et encre secondaire `#4a4166`. Le CTA utilise `#c9327a` (contraste AA avec du texte blanc). Accents : banane `#ffd23f`, bubblegum `#ff5fa2`, slime `#3ddc84`, ciel `#5bc0ff`, raisin `#6b3fe0`.
+- **Typographie** : *Bagel Fat One* uniquement pour le logo et les titres de section ; *Nunito* 500/700/800 pour tout le reste, prix compris, pour la lisibilité.
+- **Formes** : contours de 2 px et ombres dures de 4 px sur les éléments cliquables. Les éléments informatifs (réassurance, avis, filtres) ont des bordures fines, pour que la hiérarchie se lise d'un coup d'œil.
+- **Mouvement** : transitions courtes (150 à 350 ms) déclenchées par une action. Seules deux animations tournent en continu, lentes et discrètes, dans les visuels décoratifs.
 
-**Typo** — *Bagel Fat One* pour les titres (rond, gras, rigolo), *Nunito* 500/700/900 pour le texte.
+## 5. Accessibilité et confiance
 
-**Formes** — contours 3 px partout, ombres portées dures (`6px 6px 0`, style néo-brutaliste cartoon), rayons généreux, formes « blob » qui ondulent.
+- HTML sémantique, focus visible, panier en `role="dialog"` avec piège à focus et retour du focus à la fermeture.
+- `aria-live` pour le nombre de résultats et les toasts. Les notes et les prix barrés ont un équivalent texte pour les lecteurs d'écran.
+- Toutes les animations sont coupées sous `prefers-reduced-motion`.
+- Pas de dark patterns : pas de faux compte à rebours, pas de fausse rareté, frais de port affichés avant le paiement, consentement newsletter explicite.
+- Responsive : grilles fluides, hero et best-seller sur une colonne sous 860 px, filtres empilés et CTA pleine largeur sous 520 px.
 
-**Mouvement** — courbe à rebond `cubic-bezier(.34,1.8,.64,1)` sur tous les états. Boutons : se soulèvent et penchent au survol, s'écrasent au clic.
+## 6. Contenus de démonstration
 
-## 5. Garde-fous (goofy ≠ pénible)
+Les produits, prix, avis, délais et moyens de paiement sont des **contenus fictifs** à remplacer par les vraies données avant la mise en ligne.
 
-- **`prefers-reduced-motion`** : toutes les animations sont coupées, pas de confettis ni de traînée.
-- **Son** : klaxon uniquement après une action de l'utilisateur, très bref et à faible volume.
-- **Accessibilité** : HTML sémantique, focus visible (pointillé violet), `aria-live` pour le compteur et les toasts, piège à focus dans le panier, emojis décoratifs en `aria-hidden` avec texte alternatif (« 4 canards sur 5 »).
-- **Pas de dark patterns** : pas de faux compte à rebours, pas de fausse rareté, prix barrés affichés clairement, blagues jamais placées dans le CTA de paiement.
-- **Responsive** : grille auto-fill, hero sur une colonne sous 900 px, header compacté en icônes sous 520 px.
+## 7. Pistes suivantes
 
-## 6. Pistes suivantes
-
-- Fiche produit avec « démo » sonore (écouter la Chaussette-Klaxon).
-- Configurateur « Crée ta propre bêtise ».
-- Quiz « Quel objet inutile es-tu ? » pour recommander un produit.
-- Tunnel de paiement réel (Stripe) avec le même ton, mais formulaires sobres.
+- Fiche produit : galerie, choix de taille, démo sonore des Chaussettes Klaxon.
+- Recherche avec suggestions.
+- Tunnel de paiement (Stripe) : formulaires sobres, récapitulatif persistant.
+- Quiz « Quel cadeau décalé pour qui ? » comme outil de recommandation.
 
 ## Lancer le site
 
-Site statique, sans build : ouvrir `index.html` ou lancer `python3 -m http.server`.
+Site statique sans build : ouvrez `index.html` ou lancez `python3 -m http.server`.
