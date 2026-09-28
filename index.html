@@ -1,0 +1,230 @@
+<!doctype html>
+<html lang="fr">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>BIDULOSHOP™ — Des objets inutiles, vendus avec sérieux (non)</title>
+  <meta name="description" content="Le merch le plus goofy d'internet. Chaussettes à klaxon, tasses qui boudent, canards philosophes." />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Bagel+Fat+One&family=Nunito:wght@500;700;900&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="styles.css" />
+</head>
+<body>
+  <a class="skip-link" href="#boutique">Aller directement aux bêtises</a>
+
+  <!-- Bandeau défilant -->
+  <div class="marquee" aria-label="Annonces">
+    <div class="marquee__track" aria-hidden="true">
+      <span>🚚 Livraison offerte dès 42 € (le chiffre porte-bonheur)</span>
+      <span>🦆 Chaque commande contient 0 à 1 canard surprise</span>
+      <span>🍌 Code promo BANANE = -10 %</span>
+      <span>⚠️ Aucun produit n'a d'utilité prouvée</span>
+      <span>🚚 Livraison offerte dès 42 € (le chiffre porte-bonheur)</span>
+      <span>🦆 Chaque commande contient 0 à 1 canard surprise</span>
+      <span>🍌 Code promo BANANE = -10 %</span>
+      <span>⚠️ Aucun produit n'a d'utilité prouvée</span>
+    </div>
+    <p class="sr-only">Livraison offerte dès 42 €. Code promo BANANE pour -10 %.</p>
+  </div>
+
+  <header class="header">
+    <a href="#" class="logo" aria-label="Biduloshop, accueil">
+      <span class="logo__blob" aria-hidden="true">🤪</span>
+      <span class="logo__text">BIDULO<span>SHOP</span>™</span>
+    </a>
+
+    <nav class="nav" aria-label="Navigation principale">
+      <a href="#boutique">La boutique</a>
+      <a href="#avis">Avis douteux</a>
+      <a href="#club">Club des Canards</a>
+    </nav>
+
+    <div class="header__actions">
+      <button class="chaos-toggle" type="button" aria-pressed="false" id="chaosToggle">
+        <span aria-hidden="true">🌀</span> Mode chaos
+      </button>
+      <button class="cart-btn" type="button" id="cartBtn" aria-controls="cart" aria-expanded="false">
+        <span aria-hidden="true">🛒</span>
+        <span class="cart-btn__label">Panier</span>
+        <span class="cart-btn__count" id="cartCount" aria-live="polite">0</span>
+      </button>
+    </div>
+  </header>
+
+  <main>
+    <!-- HERO -->
+    <section class="hero">
+      <div class="hero__copy">
+        <p class="sticker sticker--yellow">Nouveau ! Encore plus inutile</p>
+        <h1 class="hero__title">
+          Des trucs <em class="squiggle">parfaitement</em> inutiles.
+          <span class="hero__title-alt">Livrés avec amour.</span>
+        </h1>
+        <p class="hero__lead">
+          Chaussettes à klaxon, tasses qui boudent, canards philosophes.
+          Tout ce dont ta vie n'a pas besoin, en un seul endroit.
+        </p>
+        <div class="hero__cta">
+          <a href="#boutique" class="btn btn--primary btn--big">J'achète des bêtises</a>
+          <button type="button" class="btn btn--ghost" id="randomBtn">🎲 Surprends-moi</button>
+        </div>
+        <ul class="hero__proofs" aria-label="Nos garanties">
+          <li>✅ 100 % absurde</li>
+          <li>✅ 0 % sérieux</li>
+          <li>✅ Retours sous 30 jours</li>
+        </ul>
+      </div>
+
+      <div class="hero__visual" aria-hidden="true">
+        <div class="hero__disc"></div>
+        <div class="hero__star-product" id="heroProduct">🦆</div>
+        <span class="hero__float f1">🍌</span>
+        <span class="hero__float f2">🧦</span>
+        <span class="hero__float f3">🥸</span>
+        <span class="hero__float f4">✨</span>
+        <div class="hero__price-tag">
+          <span>seulement</span>
+          <strong>12,99 €</strong>
+          <span>(c'est cadeau)</span>
+        </div>
+      </div>
+    </section>
+
+    <!-- BOUTIQUE -->
+    <section class="shop" id="boutique" aria-labelledby="shopTitle">
+      <div class="section-head">
+        <h2 id="shopTitle" class="section-title">La boutique <span aria-hidden="true">🛍️</span></h2>
+        <p class="section-sub">Filtre selon ton niveau de tolérance à la bêtise.</p>
+      </div>
+
+      <div class="filters">
+        <div class="goof-meter">
+          <label for="goofSlider" class="goof-meter__label">
+            Goof-o-mètre : <strong id="goofLabel">Tout me va</strong>
+          </label>
+          <input type="range" id="goofSlider" min="1" max="5" value="1" step="1"
+                 aria-describedby="goofHint" />
+          <div class="goof-meter__scale" id="goofHint" aria-hidden="true">
+            <span>😐</span><span>🙂</span><span>😜</span><span>🤪</span><span>🥴</span>
+          </div>
+        </div>
+
+        <div class="chips" role="group" aria-label="Catégories">
+          <button class="chip is-active" type="button" data-cat="all" aria-pressed="true">Tout</button>
+          <button class="chip" type="button" data-cat="fringues" aria-pressed="false">👕 Fringues</button>
+          <button class="chip" type="button" data-cat="maison" aria-pressed="false">🏠 Maison</button>
+          <button class="chip" type="button" data-cat="bureau" aria-pressed="false">📎 Bureau</button>
+          <button class="chip" type="button" data-cat="mystere" aria-pressed="false">❓ Mystère</button>
+        </div>
+      </div>
+
+      <p class="results-count" id="resultsCount" aria-live="polite"></p>
+      <ul class="grid" id="productGrid"></ul>
+      <div class="empty" id="emptyState" hidden>
+        <p class="empty__emoji" aria-hidden="true">🦗</p>
+        <p><strong>Rien ici.</strong> Même nous, on n'a pas osé fabriquer ça.</p>
+        <button class="btn btn--ghost" type="button" id="resetFilters">Réinitialiser les filtres</button>
+      </div>
+    </section>
+
+    <!-- Produit mis en avant -->
+    <section class="feature" aria-labelledby="featureTitle">
+      <div class="feature__visual" aria-hidden="true">🧦<span>📯</span></div>
+      <div class="feature__copy">
+        <p class="sticker sticker--pink">Best-seller absolu</p>
+        <h2 id="featureTitle" class="section-title">La Chaussette-Klaxon™</h2>
+        <p>Chaque pas fait <em>POUET</em>. Tes voisins vont t'adorer. Ou déménager. Dans les deux cas tu gagnes.</p>
+        <ol class="feature__steps">
+          <li><span>1</span> Tu l'enfiles</li>
+          <li><span>2</span> Tu marches</li>
+          <li><span>3</span> POUET</li>
+        </ol>
+        <button class="btn btn--primary" type="button" data-add="chaussette-klaxon">Ajouter au panier — 14,99 €</button>
+      </div>
+    </section>
+
+    <!-- AVIS -->
+    <section class="reviews" id="avis" aria-labelledby="reviewsTitle">
+      <div class="section-head">
+        <h2 id="reviewsTitle" class="section-title">Avis 100 % douteux</h2>
+        <p class="section-sub">Note moyenne : 4,8 canards sur 5 🦆🦆🦆🦆🦆</p>
+      </div>
+      <div class="reviews__list">
+        <figure class="review" style="--r:-2deg">
+          <blockquote>« J'ai acheté la tasse qui boude. Elle ne m'a pas parlé depuis mardi. Parfait. »</blockquote>
+          <figcaption><span aria-hidden="true">👵</span> Mamie Josette, 87 ans, rebelle</figcaption>
+        </figure>
+        <figure class="review" style="--r:1.5deg">
+          <blockquote>« Mon chat a mangé le canard philosophe. Il cite Nietzsche maintenant. »</blockquote>
+          <figcaption><span aria-hidden="true">🧔</span> Kévin, propriétaire de chat existentialiste</figcaption>
+        </figure>
+        <figure class="review" style="--r:-1deg">
+          <blockquote>« Produit inutile, livraison rapide, je recommande à mes ennemis. »</blockquote>
+          <figcaption><span aria-hidden="true">🕵️</span> Un client anonyme (c'est Kévin)</figcaption>
+        </figure>
+      </div>
+    </section>
+
+    <!-- NEWSLETTER -->
+    <section class="club" id="club" aria-labelledby="clubTitle">
+      <h2 id="clubTitle" class="section-title">Rejoins le Club des Canards 🦆</h2>
+      <p>Une newsletter par mois. Des bêtises exclusives. Zéro spam (le spam, c'est sérieux, on n'aime pas).</p>
+      <form class="club__form" id="clubForm" novalidate>
+        <label for="email" class="sr-only">Ton adresse e-mail</label>
+        <input type="email" id="email" name="email" placeholder="ton@email.coin" autocomplete="email" required />
+        <button class="btn btn--primary" type="submit">Coin coin !</button>
+      </form>
+      <p class="club__msg" id="clubMsg" role="status"></p>
+    </section>
+  </main>
+
+  <footer class="footer">
+    <p class="footer__logo">BIDULOSHOP™</p>
+    <p>© 2026 — Fabriqué par des gens qui auraient dû faire autre chose.</p>
+    <p class="footer__links">
+      <a href="#">CGV (Conditions Goofy de Vente)</a>
+      <a href="#">Contact (envoie un pigeon)</a>
+      <a href="#">Mentions très légales</a>
+    </p>
+    <p class="footer__hint">Psst… ↑ ↑ ↓ ↓ ← → ← → B A</p>
+  </footer>
+
+  <!-- PANIER (drawer) -->
+  <div class="overlay" id="overlay" hidden></div>
+  <aside class="cart" id="cart" aria-labelledby="cartTitle" aria-hidden="true" tabindex="-1">
+    <div class="cart__head">
+      <h2 id="cartTitle">Ton panier de bêtises</h2>
+      <button type="button" class="icon-btn" id="cartClose" aria-label="Fermer le panier">✕</button>
+    </div>
+    <div class="cart__progress">
+      <p id="shipMsg">Plus que 42,00 € pour la livraison offerte 🚚</p>
+      <div class="progress" aria-hidden="true"><div class="progress__bar" id="shipBar"></div></div>
+    </div>
+    <ul class="cart__items" id="cartItems"></ul>
+    <div class="cart__empty" id="cartEmpty">
+      <p aria-hidden="true">🕳️</p>
+      <p>Ton panier est aussi vide que notre business plan.</p>
+    </div>
+    <div class="cart__foot">
+      <form class="promo" id="promoForm">
+        <label for="promo" class="sr-only">Code promo</label>
+        <input id="promo" placeholder="Code promo (indice : 🍌)" autocomplete="off" />
+        <button class="btn btn--small" type="submit">OK</button>
+      </form>
+      <p class="promo__msg" id="promoMsg" role="status"></p>
+      <dl class="totals">
+        <div><dt>Sous-total</dt><dd id="subtotal">0,00 €</dd></div>
+        <div id="discountRow" hidden><dt>Remise banane 🍌</dt><dd id="discount">-0,00 €</dd></div>
+        <div class="totals__total"><dt>Total</dt><dd id="total">0,00 €</dd></div>
+      </dl>
+      <button class="btn btn--primary btn--block" type="button" id="checkoutBtn">Passer commande (sérieusement)</button>
+    </div>
+  </aside>
+
+  <!-- Toasts -->
+  <div class="toasts" id="toasts" aria-live="polite" aria-atomic="false"></div>
+
+  <script src="app.js"></script>
+</body>
+</html>
